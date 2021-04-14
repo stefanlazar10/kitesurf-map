@@ -1,0 +1,87 @@
+.navbar {
+  display: flex;
+  width: 90%;
+  height: 100px;
+  flex-direction: row;
+  margin-left: 5%;
+  align-items: center;
+}
+
+.navbar .logo img {
+  width: 10%;
+  height: auto;
+  left: 500px;
+}
+.navbar > .logo {
+  flex: 2;
+}
+
+.navbar > .logout {
+  flex: 1;
+}
+
+.navbar > .logout > .btn {
+  float: right;
+}
+
+.btn {
+  text-decoration: none;
+  display: inline-block;
+  background: hsl(205, 78%, 60%);
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  border-color: transparent;
+  text-transform: capitalize;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  margin-top: 2rem;
+  margin-left: 3rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.btn:hover {
+  background: hsl(205, 86%, 17%);
+  color: hsl(205, 78%, 60%);
+}
+.map {
+  display: flex;
+  width: 50%;
+  height: 500px;
+  margin: auto;
+  position: relative;
+}
+
+.table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+.locations-table {
+  width: 50%;
+  margin: auto;
+}
+
+.locations-table h1 {
+  align-self: flex-start;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.margin-loc {
+  margin-top: 30px;
+}
+
+.favorites {
+  display: flex;
+  flex-direction: column;
+}
+.favorites > button {
+  background: rgb(219, 179, 0);
+}
