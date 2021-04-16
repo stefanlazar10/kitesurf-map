@@ -16,27 +16,44 @@ import axios from "axios";
 import AGgrid from "./AGgrid";
 import {
   console,
+  google,
   MediaStreamTrackEvent,
 } from "google-maps-react/dist/lib/windowOrGlobal";
 import { Button, Fab, Menu, MenuItem, IconButton } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import InfoWindowEx from "./InfoWindowEx";
 
 const url = "https://6074418c066e7e0017e79725.mockapi.io/spot";
 
 export class Dashboard extends React.Component {
-  state = {
-    data: [],
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
-    backgroundcolor: false,
-    anchorEl: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
+      backgroundcolor: false,
+      anchorEl: null,
+      isToggleOn: false,
+    };
+    axios(url).then((response) => {
+      this.setState({ ...this.state, data: response.data });
+      console.log(this.state);
+    });
+  }
 
-  handleClick = (event) => {
+  handleMenuClick = (event) => {
     this.setState({
       ...this.state,
       anchorEl: event.currentTarget,
+    });
+  };
+  handleFavoritesClick = () => {
+    console.log(this.state.isToggleOn, "apasat");
+    this.setState({
+      ...this.state,
+      isToggleOn: !this.state.isToggleOn,
     });
   };
 
@@ -66,14 +83,6 @@ export class Dashboard extends React.Component {
     }
   };
 
-  constructor(props) {
-    super(props);
-    axios(url).then((response) => {
-      this.setState({ ...this.state, data: response.data });
-      console.log(this.state);
-    });
-  }
-
   render() {
     return (
       <>
@@ -83,7 +92,7 @@ export class Dashboard extends React.Component {
           </div>
           <IconButton
             aria-label="add"
-            onClick={(event) => this.handleClick(event)}
+            onClick={(event) => this.handleMenuClick(event)}
           >
             <AccountCircleIcon color="primary" />
           </IconButton>
@@ -118,6 +127,7 @@ export class Dashboard extends React.Component {
             centerAroundCurrentLocation={true}
             zoom={3}
           >
+            <button onClick={() => console.log("dsadsadsadw3")}>"plm"</button>
             {this.state &&
               this.state.data.map((marker) => (
                 <Marker
@@ -133,36 +143,40 @@ export class Dashboard extends React.Component {
                 />
               ))}
 
-            <InfoWindow
+            <InfoWindowEx
               marker={this.state.activeMarker}
               visible={this.state.showingInfoWindow}
             >
-              <div className="margin-top">
-                <h4>{this.state.selectedPlace.name}</h4>
-                <h5>{this.state.selectedPlace.country}</h5>
-              </div>
-              <div className="margin-top">
-                <h4>Wind probability</h4>
-                <h4>{this.state.selectedPlace.wind}%</h4>
-              </div>
-              <div className="margin-top">
-                <h4>Latitude</h4>
-                <h4>{this.state.selectedPlace.lat} N</h4>
-              </div>
-              <div className="margin-top">
-                <h4>Longitude</h4>
-                <h4>{this.state.selectedPlace.long} W</h4>
-              </div>
-              <div className="margin-top">
-                <h4>When to go</h4>
-                <h4>{this.state.selectedPlace.month}</h4>
-              </div>
-              <div className="margin-top favorites">
-                <button type="button" onClick={this.state.backgroundcolor}>
-                  + ADD TO FAVORITES
-                </button>
-              </div>
-            </InfoWindow>
+              <>
+                <div className="margin-top">
+                  <h4>{this.state.selectedPlace.name}</h4>
+                  <h5>{this.state.selectedPlace.country}</h5>
+                </div>
+                <div className="margin-top">
+                  <h4>Wind probability</h4>
+                  <h4>{this.state.selectedPlace.wind}%</h4>
+                </div>
+                <div className="margin-top">
+                  <h4>Latitude</h4>
+                  <h4>{this.state.selectedPlace.lat} N</h4>
+                </div>
+                <div className="margin-top">
+                  <h4>Longitude</h4>
+                  <h4>{this.state.selectedPlace.long} W</h4>
+                </div>
+                <div className="margin-top">
+                  <h4>When to go</h4>
+                  <h4>{this.state.selectedPlace.month}</h4>
+                </div>
+                <div className="margin-top favorites">
+                  <button onClick={() => this.handleFavoritesClick()}>
+                    {this.state.isToggleOn
+                      ? "-REMOVE FROM FAVORITES"
+                      : "+ADD TO FAVORITES"}
+                  </button>
+                </div>
+              </>
+            </InfoWindowEx>
           </Map>
         </div>
 
