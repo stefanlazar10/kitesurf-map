@@ -10,7 +10,6 @@ import {
 import { useState, useEffect } from "react";
 import logo from "./kite.jpg";
 import Data from "./Data";
-import Datatable from "./Datatable";
 import "./Dashboard.css";
 import axios from "axios";
 import AGgrid from "./AGgrid";

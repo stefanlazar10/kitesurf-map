@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Datatable from "./Datatable";
 import axios from "axios";
 import "./Dashboard.css";
 
@@ -12,9 +11,7 @@ const Data = () => {
   }, []);
   return (
     <>
-      <div className="table margin-top">
-        <Datatable data={data} />
-      </div>
+      <div className="table margin-top"></div>
     </>
   );
 };
